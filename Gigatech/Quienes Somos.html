@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GigaTech - Quiénes Somos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #003366;
+            --secondary-color: #00FF00;
+            --accent-color: #333333;
+            --background-color: #F1F1F1;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--background-color);
+        }
+
+        .main-menu {
+            background-color: var(--primary-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .menu-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .menu-items {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-items > li {
+            position: relative;
+            list-style: none;
+        }
+
+        .menu-items > li > a {
+            color: white;
+            text-decoration: none;
+            padding: 1rem;
+            display: block;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .submenu {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            padding: 0.5rem 0;
+            border-radius: 4px;
+        }
+
+        .menu-items > li:hover .submenu {
+            display: block;
+        }
+
+        .submenu li {
+            list-style: none;
+        }
+
+        .submenu a {
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            display: block;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .submenu a:hover {
+            background-color: var(--background-color);
+        }
+
+        header {
+            background-color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .top-bar {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 0;
+        }
+
+        .top-bar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: white;
+        }
+
+        .logo {
+            height: 80px;
+            cursor: pointer;
+        }
+
+        .search-container {
+            flex: 1;
+            margin: 0 2rem;
+            display: flex;
+            position: relative;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 0.5rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 4px 0 0 4px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .search-button {
+            padding: 0.5rem 1rem;
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            color: white;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .user-actions a {
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .main-content {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .main-content h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .main-content p {
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .map-container {
+            width: 100%;
+            height: 400px;
+            margin: 2rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            padding: 0 1rem;
+        }
+
+        .footer-section h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <span>☎️ Atención al cliente: 928 093 069</span>
+            <span>🚚 Envío gratis en pedidos superiores a 30€</span>
+        </div>
+    </div>
+
+    <header>
+        <nav>
+            <a href="Gigatech.index.html">
+                <img src="C:\Users\Mankooo\Documents\Gigatech\logo.png" alt="GigaTech Logo" class="logo">
+            </a>
+            <div class="search-container">
+                <input type="search" id="searchInput" class="search-bar" placeholder="Buscar productos, marcas, categorías...">
+                <button class="search-button" onclick="performSearch()">🔍</button>
+            </div>
+            <div class="user-actions">
+                <a href="Mi cuenta Gigatech.html">
+                    <span>👤</span>
+                    Mi Cuenta
+                </a>
+                <a href="Carrito.html">
+                    <span>🛒</span>
+                    Carrito
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-menu">
+        <div class="menu-container">
+            <ul class="menu-items">
+                <li>
+                    <a href="#portatiles">Portátiles</a>
+                    <ul class="submenu">
+                        <li><a href="Portatiles_gaming.html">Gaming</a></li>
+                        <li><a href="Portatiles_ultrabooks.html">Ultrabooks</a></li>
+                        <li><a href="#workstation">Workstation</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#componentes">Componentes</a>
+                    <ul class="submenu">
+                        <li><a href="#procesadores">Procesadores</a></li>
+                        <li><a href="#graficas">Tarjetas Gráficas</a></li>
+                        <li><a href="#placas">Placas Base</a></li>
+                        <li><a href="#memoria">Memoria RAM</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#ordenadores">Ordenadores</a>
+                    <ul class="submenu">
+                        <li><a href="#gaming-pc">Gaming</a></li>
+                        <li><a href="#oficina">Oficina</a></li>
+                        <li><a href="#all-in-one">All in One</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#perifericos">Periféricos</a>
+                    <ul class="submenu">
+                        <li><a href="#teclados">Teclados</a></li>
+                        <li><a href="#ratones">Ratones</a></li>
+                        <li><a href="#auriculares">Auriculares</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#monitores">Monitores</a>
+                    <ul class="submenu">
+                        <li><a href="#gaming-monitores">Gaming</a></li>
+                        <li><a href="#profesional">Profesional</a></li>
+                        <li><a href="#4k">4K</a></li>
+                    </ul>
+                </li>
+                <li><a href="#ofertas">Ofertas</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <h1>Quiénes Somos</h1>
+        <p>GigaTech es una empresa líder en el sector de la informática, dedicada a ofrecer las mejores soluciones tecnológicas a nuestros clientes. Desde nuestra fundación, nos hemos comprometido a proporcionar productos de alta calidad a precios competitivos, junto con un servicio al cliente excepcional.</p>
+        
+        <p>Nuestra misión es hacer que la tecnología sea accesible para todos, ofreciendo una amplia gama de productos informáticos, desde componentes hasta equipos completos, adaptándonos a las necesidades específicas de cada cliente.</p>
+        
+        <p>En GigaTech, contamos con un equipo de profesionales altamente cualificados que están siempre dispuestos a asesorar y ayudar a nuestros clientes a encontrar la mejor solución para sus necesidades tecnológicas.</p>
+        
+        <p>Nos enorgullece ofrecer:</p>
+        <ul>
+            <li>Productos de las mejores marcas del mercado</li>
+            <li>Asesoramiento técnico personalizado</li>
+            <li>Servicio post-venta de calidad</li>
+            <li>Garantía en todos nuestros productos</li>
+            <li>Precios competitivos</li>
+        </ul>
+
+        <h2>Nuestra Ubicación</h2>
+        <div class="map-container">
+            
+            <iframe src="https://www.google.com/maps/embed?pb=!4v1737562712861!6m8!1m7!1sLHI7eCimmjnkkCv8RianVg!2m2!1d28.10769811002742!2d-15.45157035013488!3f106.13186783337247!4f-9.457883276615974!5f0.7820865974627469" width="800" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Atención al cliente</h4>
+                <ul>
+                    <li><a href="#ayuda">Centro de ayuda</a></li>
+                    <li><a href="Contacto.html">Contacto</a></li>
+                    <li><a href="#devoluciones">Devoluciones</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Sobre nosotros</h4>
+                <ul>
+                    <li><a href="#empresa">Quiénes somos</a></li>
+                    <li><a href="#tiendas">Nuestras tiendas</a></li>
+                    <li><a href="#trabaja">Trabaja con nosotros</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Servicios</h4>
+                <ul>
+                    <li><a href="#envios">Envíos</a></li>
+                    <li><a href="#financiacion">Financiación</a></li>
+                    <li><a href="#garantias">Garantías</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Síguenos</h4>
+                <ul>
+                    <li><a href="#facebook">Facebook</a></li>
+                    <li><a href="#twitter">Twitter</a></li>
+                    <li><a href="#instagram">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

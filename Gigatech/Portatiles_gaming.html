@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GigaTech - Portátiles Gaming</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #003366;
+            --secondary-color: #00FF00;
+            --accent-color: #333333;
+            --background-color: #F1F1F1;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--background-color);
+        }
+
+        .main-menu {
+            background-color: var(--primary-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .menu-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .menu-items {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-items > li {
+            position: relative;
+            list-style: none;
+        }
+
+        .menu-items > li > a {
+            color: white;
+            text-decoration: none;
+            padding: 1rem;
+            display: block;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .submenu {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            padding: 0.5rem 0;
+            border-radius: 4px;
+        }
+
+        .menu-items > li:hover .submenu {
+            display: block;
+        }
+
+        .submenu li {
+            list-style: none;
+        }
+
+        .submenu a {
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            display: block;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .submenu a:hover {
+            background-color: var(--background-color);
+        }
+
+        .top-bar {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 0;
+        }
+
+        .top-bar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        header nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: white;
+        }
+
+        .logo {
+            height: 80px;
+            cursor: pointer;
+        }
+
+        .search-container {
+            flex: 1;
+            margin: 0 2rem;
+            display: flex;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 0.5rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 4px 0 0 4px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .search-button {
+            padding: 0.5rem 1rem;
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .user-actions a {
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .catalog-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .slider {
+            display: flex;
+            width: 600%;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        .slider img {
+            width: 16.666%;
+            height: 100%;
+            object-fit: contain;
+            background: #f8f8f8;
+            padding: 10px;
+            box-sizing: border-box;
+ 
+        }
+
+        .slider-buttons {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+
+        .slider-btn {
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            z-index: 1;
+            border-radius: 50%;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        .slider-btn:hover {
+            background: rgba(0,0,0,0.8);
+        }
+
+        .product-title {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            font-weight: 700;
+        }
+
+        .product-specs {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-price {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .buy-button {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .buy-button:hover {
+            background-color: #00cc00;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            padding: 0 1rem;
+        }
+
+        .footer-section h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <span>☎️ Atención al cliente: 928 093 069</span>
+            <span>🚚 Envío gratis en pedidos superiores a 30€</span>
+        </div>
+    </div>
+
+    <header>
+        <nav>
+            <a href="Gigatech.index.html">
+                <img src="logo.png" alt="GigaTech Logo" class="logo">
+            </a>
+            <div class="search-container">
+                <input type="search" class="search-bar" placeholder="Buscar portátiles gaming...">
+                <button class="search-button">🔍</button>
+            </div>
+            <div class="user-actions">
+                <a href="Mi cuenta Gigatech.html">
+                    <span>👤</span>
+                    Mi Cuenta
+                </a>
+                <a href="Carrito.html">
+                    <span>🛒</span>
+                    Carrito
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-menu">
+        <div class="menu-container">
+            <ul class="menu-items">
+                <li>
+                    <a href="#portatiles">Portátiles</a>
+                    <ul class="submenu">
+                        <li><a href="Portatiles_gaming.html">Gaming</a></li>
+                        <li><a href="Portatiles_ultrabooks.html">Ultrabooks</a></li>
+                        <li><a href="#workstation">Workstation</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#componentes">Componentes</a>
+                    <ul class="submenu">
+                        <li><a href="#procesadores">Procesadores</a></li>
+                        <li><a href="#graficas">Tarjetas Gráficas</a></li>
+                        <li><a href="#placas">Placas Base</a></li>
+                        <li><a href="#memoria">Memoria RAM</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#ordenadores">Ordenadores</a>
+                    <ul class="submenu">
+                        <li><a href="#gaming-pc">Gaming</a></li>
+                        <li><a href="#oficina">Oficina</a></li>
+                        <li><a href="#all-in-one">All in One</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#perifericos">Periféricos</a>
+                    <ul class="submenu">
+                        <li><a href="#teclados">Teclados</a></li>
+                        <li><a href="#ratones">Ratones</a></li>
+                        <li><a href="#auriculares">Auriculares</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#monitores">Monitores</a>
+                    <ul class="submenu">
+                        <li><a href="#gaming-monitores">Gaming</a></li>
+                        <li><a href="#profesional">Profesional</a></li>
+                        <li><a href="#4k">4K</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <main class="catalog-container">
+        <h1>Portátiles Gaming</h1>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="slider-container">
+                    <div class="slider" id="slider1">
+                        <img src="C:\Users\Mankooo\Documents\Gigatech\IMG_PORTATIL_GAMING\PG_1.1.jpg" alt="Portátil Gaming Pro 1">
+                        <img src="C:\Users\Mankooo\Documents\Gigatech\IMG_PORTATIL_GAMING\PG_1.2.jpg" alt="Portátil Gaming Pro 1">
+                        <img src="C:\Users\Mankooo\Documents\Gigatech\IMG_PORTATIL_GAMING\PG_1.3.jpg" alt="Portátil Gaming Pro 1">
+                        <img src="C:\Users\Mankooo\Documents\Gigatech\IMG_PORTATIL_GAMING\PG_1.4.jpg" alt="Portátil Gaming Pro 1">
+                        <img src="C:\Users\Mankooo\Documents\Gigatech\IMG_PORTATIL_GAMING\PG_1.5.jpg" alt="Portátil Gaming Pro 1">
+                        <img src="C:\Users\Mankooo\Documents\Gigatech\IMG_PORTATIL_GAMING\PG_1.6.jpg" alt="Portátil Gaming Pro 1">
+                     </div>
+                    <div class="slider-buttons">
+                        <button class="slider-btn" onclick="moveSlider('slider1', 'prev')">❮</button>
+                        <button class="slider-btn" onclick="moveSlider('slider1', 'next')">❯</button>
+                    </div>
+                </div>
+                <h2 class="product-title">GigaTech Gaming Pro X15</h2>
+                <div class="product-specs">
+                    <p>• Intel Core i7-12700H</p>
+                    <p>• NVIDIA RTX 3070 8GB</p>
+                    <p>• 16GB RAM DDR4</p>
+                    <p>• SSD 1TB NVMe</p>
+                    <p>• Pantalla 15.6" 165Hz QHD</p>
+                </div>
+                <p class="product-price">1.499,99 €</p>
+                <button class="buy-button">Añadir al carrito</button>
+            </div>
+
+            <div class="product-card">
+                <div class="slider-container">
+                    <div class="slider" id="slider2">
+                        <img src="C:\Users\Mankooo\Documents\Gigatech\IMG_PORTATIL_GAMING\PG_2.1.jpg" alt="Portátil Gaming Pro 2">
+                        <img src="C:\Users\Mankooo\Documents\Gigatech\IMG_PORTATIL_GAMING\PG_2.2.jpg" alt="Portátil Gaming Pro 2">
+                        <img src="C:\Users\Mankooo\Documents\Gigatech\IMG_PORTATIL_GAMING\PG_2.3.jpg" alt="Portátil Gaming Pro 2">
+                        <img src="C:\Users\Mankooo\Documents\Gigatech\IMG_PORTATIL_GAMING\PG_2.4.jpg" alt="Portátil Gaming Pro 2">
+                        <img src="C:\Users\Mankooo\Documents\Gigatech\IMG_PORTATIL_GAMING\PG_2.5.jpg" alt="Portátil Gaming Pro 2">
+                        <img src="C:\Users\Mankooo\Documents\Gigatech\IMG_PORTATIL_GAMING\PG_2.6.jpg" alt="Portátil Gaming Pro 2">
+                    </div>
+                    <div class="slider-buttons">
+                        <button class="slider-btn" onclick="moveSlider('slider2', 'prev')">❮</button>
+                        <button class="slider-btn" onclick="moveSlider('slider2', 'next')">❯</button>
+                    </div>
+                </div>
+                <h2 class="product-title">GigaTech Elite Gaming 17</h2>
+                <div class="product-specs">
+                    <p>• AMD Ryzen 9 5900HX</p>
+                    <p>• NVIDIA RTX 3080 16GB</p>
+                    <p>• 32GB RAM DDR4</p>
+                    <p>• SSD 2TB NVMe</p>
+                    <p>• Pantalla 17.3" 240Hz QHD</p>
+                </div>
+                <p class="product-price">2.299,99 €</p>
+                <button class="buy-button">Añadir al carrito</button>
+            </div>
+
+            <div class="product-card">
+                <div class="slider-container">
+                    <div class="slider" id="slider3">
+                        <img src="C:\Users\Mankooo\Documents\Gigatech\IMG_PORTATIL_GAMING\PG_3.1.jpg" alt="Portátil Gaming Pro 3">
+                        <img src="C:\Users\Mankooo\Documents\Gigatech\IMG_PORTATIL_GAMING\PG_3.2.jpg" alt="Portátil Gaming Pro 3">
+                        <img src="C:\Users\Mankooo\Documents\Gigatech\IMG_PORTATIL_GAMING\PG_3.3.jpg" alt="Portátil Gaming Pro 3">
+                        <img src="C:\Users\Mankooo\Documents\Gigatech\IMG_PORTATIL_GAMING\PG_3.4.jpg" alt="Portátil Gaming Pro 3">
+                        <img src="C:\Users\Mankooo\Documents\Gigatech\IMG_PORTATIL_GAMING\PG_3.5.jpg" alt="Portátil Gaming Pro 3">
+                        <img src="C:\Users\Mankooo\Documents\Gigatech\IMG_PORTATIL_GAMING\PG_3.6.jpg" alt="Portátil Gaming Pro 3">
+                    </div>
+                    <div class="slider-buttons">
+                        <button class="slider-btn" onclick="moveSlider('slider3', 'prev')">❮</button>
+                        <button class="slider-btn" onclick="moveSlider('slider3', 'next')">❯</button>
+                    </div>
+                </div>
+                <h2 class="product-title">GigaTech Start Gaming</h2>
+                <div class="product-specs">
+                    <p>• Intel Core i5-12500H</p>
+                    <p>• NVIDIA RTX 3060 6GB</p>
+                    <p>• 16GB RAM DDR4</p>
+                    <p>• SSD 512GB NVMe</p>
+                    <p>• Pantalla 15.6" 144Hz FHD</p>
+                </div>
+                <p class="product-price">999,99 €</p>
+                <button class="buy-button">Añadir al carrito</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Atención al cliente</h4>
+                <ul>
+                    <li><a href="#ayuda">Centro de ayuda</a></li>
+                    <li><a href="Contacto.html">Contacto</a></li>
+                    <li><a href="#devoluciones">Devoluciones</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Sobre nosotros</h4>
+                <ul>
+                    <li><a href="Quienes Somos.html">Quiénes somos</a></li>
+                    <li><a href="#tiendas">Nuestras tiendas</a></li>
+                    <li><a href="#trabaja">Trabaja con nosotros</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Servicios</h4>
+                <ul>
+                    <li><a href="#envios">Envíos</a></li>
+                    <li><a href="#financiacion">Financiación</a></li>
+                    <li><a href="#garantias">Garantías</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Síguenos</h4>
+                <ul>
+                    <li><a href="#facebook">Facebook</a></li>
+                    <li><a href="#twitter">Twitter</a></li>
+                    <li><a href="#instagram">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let sliderPositions = {
+            slider1: 0,
+            slider2: 0,
+            slider3: 0
+        };
+
+        function moveSlider(sliderId, direction) {
+            const slider = document.getElementById(sliderId);
+            const totalImages = slider.children.length;
+            const moveAmount = 100 / totalImages;
+            
+            if (direction === 'next') {
+                sliderPositions[sliderId] = (sliderPositions[sliderId] - moveAmount);
+                if (sliderPositions[sliderId] <= -100) {
+                    sliderPositions[sliderId] = 0;
+                }
+            } else {
+                sliderPositions[sliderId] = (sliderPositions[sliderId] + moveAmount);
+                if (sliderPositions[sliderId] > 0) {
+                    sliderPositions[sliderId] = -(100 - moveAmount);
+                }
+            }
+            
+            slider.style.transform = `translateX(${sliderPositions[sliderId]}%)`;
+        }
+    </script>
+</body>
+</html>

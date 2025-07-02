@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GigaTech - Carrito</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #003366;
+            --secondary-color: #00FF00;
+            --accent-color: #333333;
+            --background-color: #F1F1F1;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--background-color);
+        }
+
+        .top-bar {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 0;
+        }
+
+        .top-bar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        header nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: white;
+        }
+
+        .logo {
+            height: 80px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .cart-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-right: 1rem;
+        }
+
+        .item-details {
+            flex-grow: 1;
+        }
+
+        .item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quantity-btn {
+            padding: 0.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .quantity-btn:hover {
+            background-color: #004080;
+        }
+
+        .cart-summary {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: #f8f8f8;
+            border-radius: 4px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background-color: #004080;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            padding: 0 1rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <span>☎️ Atención al cliente: 928 093 069</span>
+            <span>🚚 Envío gratis en pedidos superiores a 30€</span>
+        </div>
+    </div>
+
+    <header>
+        <nav>
+            <a href="Gigatech.index.html">
+                <img src="C:\Users\Mankooo\Documents\Gigatech\logo.png" alt="GigaTech Logo" class="logo">
+            </a>
+        </nav>
+    </header>
+
+    <div class="cart-container">
+        <h2>Tu Carrito</h2>
+        <div class="cart-item">
+            <img src="https://img.pccomponentes.com/articles/1037/10377231/1359-hp-victus-16-d1040ns-intel-core-i5-12450h-16gb-512gb-ssd-rtx-3050-161.jpg" alt="HP Victus 16">
+            <div class="item-details">
+                <h3>HP Victus 16</h3>
+                <p id="price">849,99€</p>
+                <div class="item-quantity">
+                    <button class="quantity-btn" onclick="updateQuantity(-1)">-</button>
+                    <span id="quantity">1</span>
+                    <button class="quantity-btn" onclick="updateQuantity(1)">+</button>
+                    <button class="quantity-btn" style="margin-left: 1rem; background-color: #ff4444;" onclick="removeItem()">Eliminar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="cart-summary">
+            <h3>Resumen del pedido</h3>
+            <p>Subtotal: <span id="subtotal">849,99€</span></p>
+            <p>Gastos de envío: <span id="shipping">Gratis</span></p>
+            <p><strong>Total: <span id="total">849,99€</span></strong></p>
+            <button class="checkout-btn" onclick="checkout()">Proceder al pago</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Atención al cliente</h4>
+                <ul>
+                    <li><a href="#ayuda">Centro de ayuda</a></li>
+                    <li><a href="Contacto.html">Contacto</a></li>
+                    <li><a href="#devoluciones">Devoluciones</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Sobre nosotros</h4>
+                <ul>
+                    <li><a href="Quienes Somos.html">Quiénes somos</a></li>
+                    <li><a href="#tiendas">Nuestras tiendas</a></li>
+                    <li><a href="#trabaja">Trabaja con nosotros</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Servicios</h4>
+                <ul>
+                    <li><a href="#envios">Envíos</a></li>
+                    <li><a href="#financiacion">Financiación</a></li>
+                    <li><a href="#garantias">Garantías</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Síguenos</h4>
+                <ul>
+                    <li><a href="#facebook">Facebook</a></li>
+                    <li><a href="#twitter">Twitter</a></li>
+                    <li><a href="#instagram">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let quantity = 1;
+        const basePrice = 849.99;
+
+        function updateQuantity(change) {
+            quantity = Math.max(1, quantity + change);
+            document.getElementById('quantity').textContent = quantity;
+            updatePrices();
+        }
+
+        function updatePrices() {
+            const subtotal = basePrice * quantity;
+            document.getElementById('subtotal').textContent = subtotal.toFixed(2) + '€';
+            document.getElementById('total').textContent = subtotal.toFixed(2) + '€';
+        }
+
+        function removeItem() {
+            const cartItem = document.querySelector('.cart-item');
+            if (cartItem) {
+                cartItem.remove();
+                document.getElementById('subtotal').textContent = '0,00€';
+                document.getElementById('total').textContent = '0,00€';
+            }
+        }
+
+        function checkout() {
+            if (quantity > 0) {
+                alert('Procediendo al pago de ' + document.getElementById('total').textContent);
+            } else {
+                alert('El carrito está vacío');
+            }
+        }
+    </script>
+</body>
+</html>
