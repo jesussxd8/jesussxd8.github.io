@@ -17,7 +17,7 @@
     scroll-behavior: smooth;
   }
   body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif; 
     color: #3b2f2f;
     background: #fff6e8;
     line-height: 1.6;
@@ -331,11 +331,14 @@
   <!-- Navbar -->
   <nav class="navbar" role="navigation" aria-label="Menú principal">
     <img src="logo2.png" alt="Logo Café & Brunch" class="logo" />
-    <div class="nav-links">
-      <a href="#menu" tabindex="0">Menú</a>
-      <a href="#ubicacion" tabindex="0">Ubicación</a>
-      <a href="#contacto" tabindex="0">Contacto</a>
-    </div>
+    
+<div class="nav-links">
+  <a href="#quienes-somos" tabindex="0">Quiénes Somos</a>
+  <a href="#filosofia" tabindex="0">Filosofía</a>
+  <a href="#menu" tabindex="0">Menú</a>
+  <a href="#ubicacion" tabindex="0">Ubicación</a>
+  <a href="#contacto" tabindex="0">Contacto</a>
+</div>
   </nav>
 
   <!-- Hero Section con slideshow -->
@@ -352,7 +355,32 @@
   </header>
 
   <!-- Menú -->
-  <section id="menu" tabindex="0" aria-label="Menú Café & Brunch">
+  
+
+  <!-- Ubicación -->
+  
+
+  <!-- Contacto -->
+  
+
+  <!-- Footer -->
+  
+  <!-- Filosofía -->
+    
+
+  <!-- Quiénes Somos -->
+    
+<section id="quienes-somos" tabindex="0" aria-label="Quiénes somos en Café & Brunch" style="background: linear-gradient(135deg, #d2b48ccc 0%, #8b4513cc 100%); color: #fff8dc; margin-top: 3rem;">
+    <h2>Quiénes Somos</h2>
+    <p style="max-width: 800px; margin: 0 auto; font-size: 1.2rem; text-align: center;">
+      Somos un equipo de amantes del café y la gastronomía, unidos por el deseo de crear un espacio donde cada visita sea una experiencia única. Desde nuestros baristas hasta nuestro personal de cocina y sala, compartimos la misma pasión: ofrecer un servicio cercano, profesional y lleno de sabor. ¡Te esperamos con los brazos abiertos!
+    </p>
+  </section><section id="filosofia" tabindex="0" aria-label="Filosofía de Café & Brunch" style="background: linear-gradient(135deg, #fff8dccc 0%, #d2b48ccc 100%); margin-top: 3rem;">
+    <h2>Filosofía</h2>
+    <p style="max-width: 800px; margin: 0 auto; font-size: 1.2rem; text-align: center;">
+      En Café & Brunch creemos en los pequeños placeres de la vida: una buena taza de café, un brunch preparado con mimo y un ambiente acogedor. Nuestra filosofía se basa en la calidad, la cercanía y la sostenibilidad. Trabajamos con productos frescos, proveedores locales y un equipo apasionado por ofrecer lo mejor cada día.
+    </p>
+  </section><section id="menu" tabindex="0" aria-label="Menú Café & Brunch">
     <h2>Menú</h2>
     <iframe 
       src="carta.pdf" 
@@ -361,10 +389,28 @@
       loading="lazy" 
       aria-describedby="menu"
       allowfullscreen></iframe>
-  </section>
+<div style="text-align: center; margin-top: 1.5rem;">
+  <a href="carta.pdf" download style="text-decoration: none;">
+    <button style="
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      background: linear-gradient(90deg, #d2992a 0%, #8b4513 100%);
+      color: #fff8dc;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: background 0.3s ease;
+    "
+    onmouseover="this.style.background='linear-gradient(90deg, #c27e00 0%, #6e3a03 100%)'"
+    onmouseout="this.style.background='linear-gradient(90deg, #d2992a 0%, #8b4513 100%)'">
+      📄 Descargar Carta
+    </button>
+  </a>
+</div>
 
-  <!-- Ubicación -->
-  <section id="ubicacion" tabindex="0" aria-label="Ubicación de Café & Brunch">
+  </section><section id="ubicacion" tabindex="0" aria-label="Ubicación de Café & Brunch">
     <h2>Ubicación</h2>
     <div class="map-container">
       <iframe 
@@ -374,12 +420,9 @@
         allowfullscreen 
         referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
-  </section>
-
-  <!-- Contacto -->
-  <section id="contacto" tabindex="0" aria-label="Formulario de contacto Café & Brunch">
+  </section><section id="contacto" tabindex="0" aria-label="Formulario de contacto Café & Brunch">
     <h2>Contacto</h2>
-    <form action="#" method="post" aria-describedby="contacto">
+    <form action="mailto:jesussxd14@gmail.com" method="POST" enctype="text/plain" aria-describedby="contacto">
       <label for="nombre">Nombre</label>
       <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre completo" />
       
@@ -391,10 +434,7 @@
       
       <button type="submit">Enviar</button>
     </form>
-  </section>
-
-  <!-- Footer -->
-  <footer role="contentinfo">
+  </section><footer role="contentinfo">
     <p>© 2025 Café & Brunch. Todos los derechos reservados.</p>
   </footer>
 
