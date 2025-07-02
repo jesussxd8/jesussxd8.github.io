@@ -327,6 +327,19 @@
 
     }
   }
+
+  .whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1200;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .whatsapp-float:hover {
+    transform: scale(1.1);
+  }
+
 </style>
 </head>
 
@@ -422,7 +435,7 @@
     <h2>Ubicación</h2>
     <div class="map-container">
       <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1995.7047833585186!2d-74.09211357972034!3d4.602350544261975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9cbb6c152827%3A0x40d487db3c4b2ab5!2sCoffee%20Jungla%20Art%20Caf%C3%A9!5e0!3m2!1ses!2sco!4v1698718108135!5m2!1ses!2sco" 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3527.866538169834!2d-15.447611323787514!3d27.84463987610419!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc409f06f5ae5bc7%3A0x2c393263aab36b7a!2sAv.%20de%20Canarias%2C%20337%2C%2035110%20Vecindario%2C%20Las%20Palmas!5e0!3m2!1ses!2ses!4v1751492863587!5m2!1ses!2ses" 
         aria-label="Mapa de ubicación de Coffee Jungla Art Café" 
         loading="lazy" 
         allowfullscreen 
@@ -459,6 +472,18 @@
 
   setInterval(nextSlide, 7000);
 </script>
+
+
+<!-- Botón flotante de WhatsApp -->
+<a href="https://wa.me/34666729439" 
+   class="whatsapp-float" 
+   target="_blank" 
+   aria-label="Chatea por WhatsApp con Café & Brunch">
+  <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" 
+       alt="WhatsApp" 
+       width="60" 
+       height="60" />
+</a>
 
 </body>
 </html>
