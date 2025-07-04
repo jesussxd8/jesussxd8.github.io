@@ -1,550 +1,383 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Chakra Coffee & Brunch</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chakra Coffee & Brunch</title>
 
-<!-- Fuente moderna y profesional -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <!-- Tipografía Darrell Rolando personalizada -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Darrell+Rolando:wght@300;400;700&display=swap" rel="stylesheet">
 
-<style>
-  /* Reset */
-  *, *::before, *::after {
-    margin: 0; padding: 0; box-sizing: border-box;
-  }
-  html {
-    scroll-behavior: smooth;
-  }
-  body {
-    font-family: 'Poppins', sans-serif; 
-    color: #3b2f2f;
-    background: #fff6e8;
-    line-height: 1.6;
-    position: relative;
-    padding-left: 60px;  /* espacio para margen izquierdo con granos */
-    padding-right: 60px; /* espacio para margen derecho con granos */
-    overflow-x: hidden;
-  }
-
-  /* Granitos de café en los márgenes */
-  .coffee-grains-left,
-  .coffee-grains-right {
-    position: fixed;
-    top: 0;
-    width: 60px;
-    height: 100vh;
-    pointer-events: none; /* no interfieren con clics */
-    z-index: 1050;
-    background-repeat: repeat;
-    background-position: center;
-    background-size: 30px 30px;
-    opacity: 0.15;
-    filter: drop-shadow(0 0 1px rgba(0,0,0,0.1));
-  }
-  .coffee-grains-left {
-    left: 0;
-    background-image: url("data:image/svg+xml;utf8,<svg fill='%238B4513' height='30' viewBox='0 0 24 24' width='30' xmlns='http://www.w3.org/2000/svg'><path d='M12 2C8 3 3 8 4 14c.8 4 6 6 8 6s7-3 7-8-3-8-7-8zM9 13a2 2 0 104 0 2 2 0 00-4 0z'/></svg>");
-  }
-  .coffee-grains-right {
-    right: 0;
-    background-image: url("data:image/svg+xml;utf8,<svg fill='%23654210' height='30' viewBox='0 0 24 24' width='30' xmlns='http://www.w3.org/2000/svg'><path d='M12 2C8 3 3 8 4 14c.8 4 6 6 8 6s7-3 7-8-3-8-7-8zM9 13a2 2 0 104 0 2 2 0 00-4 0z'/></svg>");
-  }
-
-  /* Navbar */
-  .navbar {
-    position: fixed;
-    top: 0; left: 60px; right: 60px;
-    background: linear-gradient(90deg, #8B4513 0%, #a2610a 100%);
-    padding: 1rem 4rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1100;
-    box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
-    transition: background 0.3s ease;
-    border-radius: 0 0 15px 15px;
-  }
-  .navbar:hover {
-    background: linear-gradient(90deg, #a2610a 0%, #8B4513 100%);
-  }
-  .logo {
-    height: 60px;
-    cursor: pointer;
-    filter: drop-shadow(0 0 4px rgba(255 255 255 / 0.3));
-    transition: transform 0.3s ease;
-  }
-  .logo:hover {
-    transform: scale(1.1);
-  }
-  .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
-    display: flex;
-    gap: 2.5rem;
-  }
-  .nav-links a {
-    color: #fff8dc;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1.1rem;
-    position: relative;
-    padding-bottom: 4px;
-    transition: color 0.3s ease;
-  }
-  .nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0;
-    width: 0%;
-    height: 2px;
-    background: #fff8dc;
-    transition: width 0.3s ease;
-  }
-  .nav-links a:hover,
-  .nav-links a:focus {
-    color: #fff;
-  }
-  .nav-links a:hover::after,
-  .nav-links a:focus::after {
-    width: 100%;
-  }
-
-  /* Hero Section with parallax background */
-  .hero {
-    position: relative;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: #fff8dc;
-    overflow: hidden;
-    background: linear-gradient(135deg, #8B4513cc 0%, #a2610acc 100%);
-  }
-
-  .hero .slideshow img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 110%;
-    height: 110%;
-    object-fit: cover;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out;
-    filter: brightness(0.6);
-    will-change: opacity;
-  }
-  .hero .slideshow img.active {
-    opacity: 1;
-  }
-  .hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(139,69,19,0.75) 20%, rgba(162,97,10,0.9) 80%);
-    z-index: 0;
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 10;
-    max-width: 700px;
-    padding: 0 1.5rem;
-    animation: fadeSlideIn 1.8s ease forwards;
-  }
-  .hero-content h1 {
-    font-size: 4rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    letter-spacing: 2px;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-  }
-  .hero-content p {
-    font-size: 1.5rem;
-    font-weight: 400;
-    text-shadow: 1px 1px 5px rgba(0,0,0,0.35);
-  }
-
-  @keyframes fadeSlideIn {
-    0% {
-      opacity: 0;
-      transform: translateY(30px);
+  <style>
+    :root {
+      --bg: #f4efe8;
+      --primary: #c66c27;
+      --accent: #f0ead6;
+      --text: #2b1e1e;
+      --white: #ffffff;
+      --shadow: rgba(0, 0, 0, 0.05);
     }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-  }
 
-  /* Section base styles */
-  section {
-    padding: 4rem 1.5rem;
-    max-width: 1080px;
-    margin: 0 auto;
-    border-radius: 15px;
-    box-shadow: 0 6px 18px rgb(0 0 0 / 0.05);
-    backdrop-filter: blur(10px);
-  }
-
-  /* Gradient backgrounds for sections with smooth transitions */
-  #menu {
-    background: linear-gradient(135deg, #fff8dccc 0%, #d2b48ccc 100%);
-    margin-top: 3rem;
-  }
-
-  #ubicacion {
-    background: linear-gradient(135deg, #d2b48ccc 0%, #8b4513cc 100%);
-    color: #fff8dc;
-    margin-top: 3rem;
-  }
-
-  #contacto {
-    background: linear-gradient(135deg, #8b4513cc 0%, #654321cc 100%);
-    color: #fff8dc;
-    margin-top: 3rem;
-  }
-
-  /* Headings for sections */
-  section h2 {
-    font-size: 2.8rem;
-    text-align: center;
-    margin-bottom: 2.5rem;
-    font-weight: 700;
-    color: inherit;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.15);
-  }
-
-  /* Menu iframe styling */
-  #menu iframe {
-    display: block;
-    width: 100%;
-    height: 650px;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgb(0 0 0 / 0.15);
-    transition: transform 0.3s ease;
-  }
-  #menu iframe:hover,
-  #menu iframe:focus {
-    transform: scale(1.02);
-    outline: none;
-  }
-
-  /* Map container */
-  .map-container iframe {
-    width: 100%;
-    height: 450px;
-    border-radius: 15px;
-    box-shadow: 0 6px 15px rgb(0 0 0 / 0.15);
-    border: none;
-  }
-
-  /* Contact form */
-  form {
-    max-width: 600px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-  input, textarea {
-    padding: 1.2rem 1rem;
-    border-radius: 12px;
-    border: none;
-    font-size: 1.1rem;
-    font-family: 'Poppins', sans-serif;
-    box-shadow: 0 4px 10px rgb(0 0 0 / 0.1);
-    transition: box-shadow 0.3s ease;
-  }
-  input:focus, textarea:focus {
-    outline: none;
-    box-shadow: 0 0 10px #d2992a;
-  }
-  textarea {
-    resize: vertical;
-    min-height: 140px;
-  }
-
-  button {
-    padding: 1.3rem 2rem;
-    border-radius: 12px;
-    border: none;
-    background: linear-gradient(90deg, #d2992a 0%, #8b4513 100%);
-    color: #fff8dc;
-    font-size: 1.3rem;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 6px 15px rgb(210 153 42 / 0.6);
-    transition: background 0.3s ease, box-shadow 0.3s ease;
-  }
-  button:hover,
-  button:focus {
-    background: linear-gradient(90deg, #c27e00 0%, #6e3a03 100%);
-    box-shadow: 0 8px 20px rgb(194 126 0 / 0.8);
-    outline: none;
-  }
-
-  /* Footer */
-  footer {
-    text-align: center;
-    padding: 2rem 1rem;
-    background: linear-gradient(90deg, #654321, #8b4513);
-    color: #fff8dc;
-    font-weight: 500;
-    font-size: 1rem;
-    margin-top: 4rem;
-    box-shadow: inset 0 6px 12px rgb(0 0 0 / 0.2);
-    border-radius: 15px 15px 0 0;
-  }
-
-  /* Responsive */
-  @media (max-width: 768px) {
     body {
-      padding-left: 20px;
-      padding-right: 20px;
+      font-family: 'Darrell Rolando', serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
     }
-    .coffee-grains-left,
-    .coffee-grains-right {
-      display: none; /* ocultamos en móviles para no saturar */
+
+    header {
+      width: 100%;
+      background-color: var(--white);
+      box-shadow: 0 2px 6px var(--shadow);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
     }
+
     .navbar {
-      left: 0; right: 0;
-      padding: 1rem 1.5rem;
-      border-radius: 0;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    .hero-content h1 {
-      font-size: 2.8rem;
+
+    .navbar img {
+      height: 80px;
+      object-fit: contain;
     }
-    section {
-      padding: 3rem 1rem;
-      max-width: 100%;
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .nav-toggle span {
+      height: 2px;
+      width: 25px;
+      background: var(--text);
+      margin-bottom: 5px;
+      border-radius: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
     .nav-links a {
-      font-size: 1rem;
-      padding: 6px 12px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      transition: color 0.3s;
+      font-family: 'Poppins', sans-serif;
     }
 
+    .nav-links a:hover {
+      color: var(--primary);
     }
-  }
 
-  .whatsapp-float {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1200;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-  }
-  .whatsapp-float:hover {
-    transform: scale(1.1);
-  }
+    .hero {
+      margin-top: 100px;
+      background: url('1.jpeg') center/cover no-repeat;
+      height: 90vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      color: var(--white);
+    }
 
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 1;
+    }
 
-.whatsapp-float {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 1200;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.whatsapp-float:hover {
-  transform: scale(1.1);
-}
-.whatsapp-float img {
-  width: 60px;
-  height: 60px;
-}
-.whatsapp-tooltip {
-  font-family: 'Poppins', sans-serif;
-  background-color: #25D366;
-  color: white;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 1rem;
-  font-weight: 500;
-  opacity: 0;
-  animation: fadeInOut 12s ease-in-out infinite;
-  white-space: nowrap;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-@keyframes fadeInOut {
-  0%, 76%, 100% { opacity: 0; }
-  80%, 96% { opacity: 1; }
-}
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+    }
 
-</style>
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+    }
+
+    section {
+      padding: 4rem 1.5rem;
+      width: 100%;
+      background: var(--white);
+      box-shadow: 0 0 10px var(--shadow);
+      margin-top: 4rem;
+    }
+
+    section h2 {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--primary);
+    }
+
+    section p {
+      font-size: 1.1rem;
+      text-align: center;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    iframe, img {
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      margin-top: 1rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    input, textarea {
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    button {
+      padding: 1rem 2rem;
+      background-color: var(--primary);
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background-color: var(--accent);
+      color: var(--text);
+      font-size: 0.9rem;
+      margin-top: 4rem;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 999;
+    }
+
+    .whatsapp-float img {
+      width: 60px;
+      height: 60px;
+    }
+
+    @media (max-width: 768px) {
+      .nav-toggle {
+        display: flex;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--white);
+        flex-direction: column;
+        display: none;
+        padding: 1rem;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+    }
+  </style>
 </head>
-
-<body id="top">
-
-  <!-- Granos de café decorativos en márgenes -->
-  <div class="coffee-grains-left" aria-hidden="true"></div>
-  <div class="coffee-grains-right" aria-hidden="true"></div>
-
-  <!-- Navbar -->
-  <nav class="navbar" role="navigation" aria-label="Menú principal">
-    <a href="#top"><img src="logo2.png" alt="Logo Chakra Coffee & Brunch" class="logo" /></a>
-    
-<div class="nav-links">
-  <a href="#quienes-somos" tabindex="0">Quiénes Somos</a>
-  <a href="#filosofia" tabindex="0">Filosofía</a>
-  <a href="#menu" tabindex="0">Menú</a>
-  <a href="#horario" tabindex="0">Horario</a>
-  <a href="#ubicacion" tabindex="0">Ubicación</a>
-  <a href="#contacto" tabindex="0">Contacto</a>
-
-  <div class="social-icons" style="display: flex; gap: 1rem; align-items: center; margin-left: 2rem;">
-    <a href="https://www.instagram.com/chakracoffeebrunch/?hl=es" target="_blank" aria-label="Instagram">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" style="width: 24px; height: 24px; filter: invert(98%) sepia(6%) saturate(247%) hue-rotate(329deg) brightness(104%) contrast(101%);" />
-    </a>
-    <a href="https://www.tiktok.com/@chakracoffeebrunc?is_from_webapp=1&sender_device=pc" target="_blank" aria-label="TikTok">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok" style="width: 24px; height: 24px; filter: invert(98%) sepia(6%) saturate(247%) hue-rotate(329deg) brightness(104%) contrast(101%);" />
-    </a>
-  </div>
-
-  </div>
-  </nav>
-
-  <!-- Hero Section con slideshow -->
-  <header class="hero" role="banner" aria-label="Imagen destacada de Chakra Coffee & Brunch">
-    <div class="slideshow" aria-hidden="true">
-      <img src="1.jpeg" alt="" class="active" />
-      <img src="2.jpeg" alt="" />
-      <img src="3.jpeg" alt="" />
-      <img src="4.jpeg" alt="" />
-      <img src="5.jpeg" alt="" />
-      <img src="6.jpeg" alt="" />
-      <img src="7.jpeg" alt="" />
-    </div>
-    <div class="hero-content">
-      <h1>Chakra Coffee & Brunch</h1>
-      <p>Disfruta la mejor experiencia de café y brunch en un solo lugar.</p>
+<body>
+  <header>
+    <div class="navbar">
+      <a href="#top"><img src="logo2.png" alt="Logo Chakra Coffee & Brunch" class="logo" /></a>
+      <div class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </div>
+      <nav class="nav-links">
+  <a href="#quienes-somos">Quiénes Somos</a>
+  <a href="#filosofia">Filosofía</a>
+  <a href="#menu">Menú</a>
+  <a href="#horario">Horario</a>
+  <a href="#ubicacion">Ubicación</a>
+  <a href="#contacto">Contacto</a>
+  <a href="https://www.instagram.com/chakracoffeebrunch/?hl=es" target="_blank" aria-label="Instagram">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" style="width: 24px; height: 24px; filter: invert(22%) sepia(9%) saturate(1356%) hue-rotate(316deg) brightness(96%) contrast(94%);" />
+  </a>
+  <a href="https://www.tiktok.com/@chakracoffeebrunc?is_from_webapp=1&sender_device=pc" target="_blank" aria-label="TikTok">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok" style="width: 24px; height: 24px; filter: invert(22%) sepia(9%) saturate(1356%) hue-rotate(316deg) brightness(96%) contrast(94%);" />
+  </a>
+</nav>
     </div>
   </header>
 
-  <!-- Menú -->
-  
-
-  <!-- Ubicación -->
-  
-
-  <!-- Contacto -->
-  
-
-  <!-- Footer -->
-  
-  <!-- Filosofía -->
-    
-
-  <!-- Quiénes Somos -->
-    
-<section id="quienes-somos" tabindex="0" aria-label="Quiénes somos en Chakra Coffee & Brunch" style="background: linear-gradient(135deg, #d2b48ccc 0%, #8b4513cc 100%); color: #fff8dc; margin-top: 3rem;">
-    <h2>Quiénes Somos</h2>
-    <p style="max-width: 800px; margin: 0 auto; font-size: 1.2rem; text-align: center;">
-      Somos un equipo de amantes del café y la gastronomía, unidos por el deseo de crear un espacio donde cada visita sea una experiencia única. Desde nuestros baristas hasta nuestro personal de cocina y sala, compartimos la misma pasión: ofrecer un servicio cercano, profesional y lleno de sabor. ¡Te esperamos con los brazos abiertos!
-    </p>
-  </section><section id="filosofia" tabindex="0" aria-label="Filosofía de Chakra Coffee & Brunch" style="background: linear-gradient(135deg, #fff8dccc 0%, #d2b48ccc 100%); margin-top: 3rem;">
-    <h2>Filosofía</h2>
-    <p style="max-width: 800px; margin: 0 auto; font-size: 1.2rem; text-align: center;">
-      En Chakra Coffee & Brunch creemos en los pequeños placeres de la vida: una buena taza de café, un brunch preparado con mimo y un ambiente acogedor. Nuestra filosofía se basa en la calidad, la cercanía y la sostenibilidad. Trabajamos con productos frescos, proveedores locales y un equipo apasionado por ofrecer lo mejor cada día.
-    </p>
-  </section><section id="menu" tabindex="0" aria-label="Menú Chakra Coffee & Brunch">
-    <h2>Menú</h2>
-    <iframe 
-      src="carta.pdf" 
-      title="Menú de Chakra Coffee & Brunch" 
-      frameborder="0" 
-      loading="lazy" 
-      aria-describedby="menu"
-      allowfullscreen></iframe>
-<div style="text-align: center; margin-top: 1.5rem;">
-  <a href="carta.pdf" download style="text-decoration: none;">
-    <button style="
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
-      font-weight: bold;
-      background: linear-gradient(90deg, #d2992a 0%, #8b4513 100%);
-      color: #fff8dc;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      transition: background 0.3s ease;
-    "
-    onmouseover="this.style.background='linear-gradient(90deg, #c27e00 0%, #6e3a03 100%)'"
-    onmouseout="this.style.background='linear-gradient(90deg, #d2992a 0%, #8b4513 100%)'">
-      📄 Descargar Carta
-    </button>
-  </a>
-</div>
-
-  </section>
-<section id="horario" tabindex="0" aria-label="Horario de apertura de Chakra Coffee & Brunch" style="background: linear-gradient(135deg, #fff8dccc 0%, #d2b48ccc 100%); margin-top: 3rem;">
-  <h2>Horario</h2>
-  <div style="text-align:center;">
-    <img src="horario.png" alt="Horario Chakra Coffee & Brunch" style="max-width: 500px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 8px 16px rgba(0,0,0,0.15);" />
+  <section class="hero">
+  <img id="hero-image" src="1.jpeg" alt="Imagen principal" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; transition:opacity 1s ease-in-out;">
+  <div class="hero-content">
+    <h1>Chakra Coffee & Brunch</h1>
+    <p>Disfruta la mejor experiencia de café y brunch en un solo lugar.</p>
   </div>
 </section>
-<section id="ubicacion" tabindex="0" aria-label="Ubicación de Chakra Coffee & Brunch">
-    <h2>Ubicación</h2>
-    <div class="map-container">
-      <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3527.866383893266!2d-15.447611323855572!3d27.84464461942132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc409f14efa40a29%3A0x2647ae682d50702!2sChakra%20Coffee%20%26%20Brunch!5e0!3m2!1ses!2ses!4v1751561034411!5m2!1ses!2ses" 
-        aria-label="Mapa de ubicación de Coffee Jungla Art Café" 
-        loading="lazy" 
-        allowfullscreen 
-        referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
-  </section><section id="contacto" tabindex="0" aria-label="Formulario de contacto Chakra Coffee & Brunch">
-    <h2>Contacto</h2>
-    <form action="mailto:jesussxd14@gmail.com" method="POST" enctype="text/plain" aria-describedby="contacto">
-      <label for="nombre">Nombre</label>
-      <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre completo" />
-      
-      <label for="email">Correo Electrónico</label>
-      <input type="email" id="email" name="email" required placeholder="tucorreo@ejemplo.com" />
-      
-      <label for="mensaje">Mensaje</label>
-      <textarea id="mensaje" name="mensaje" required placeholder="Escribe tu mensaje aquí"></textarea>
-      
-      <button type="submit">Enviar</button>
-    </form>
-  </section><footer role="contentinfo">
-    <p>© 2025 Chakra Coffee & Brunch. Todos los derechos reservados.</p>
-  </footer>
 
 <script>
-  // Slideshow simple con fade
-  const slides = document.querySelectorAll('.slideshow img');
-  let current = 0;
+  const heroImages = ['1.jpeg', '2.jpeg', '3.jpeg', '4.jpeg', '5.jpeg', '6.jpeg', '7.jpeg', '8.jpeg', '9.jpeg', '10.jpeg'];
+  let currentHero = 0;
+  const heroImg = document.getElementById('hero-image');
 
-  function nextSlide() {
-    slides[current].classList.remove('active');
-    current = (current + 1) % slides.length;
-    slides[current].classList.add('active');
-  }
-
-  setInterval(nextSlide, 7000);
+  setInterval(() => {
+    currentHero = (currentHero + 1) % heroImages.length;
+    heroImg.style.opacity = 0;
+    setTimeout(() => {
+      heroImg.src = heroImages[currentHero];
+      heroImg.style.opacity = 1;
+    }, 500);
+  }, 5000);
 </script>
 
 
-<!-- Botón flotante de WhatsApp -->
-<a href="https://wa.me/34666729439" 
-   class="whatsapp-float" 
-   target="_blank" 
-   aria-label="Chatea por WhatsApp con Café & Brunch">
+</style>
+
+
+
+  <section id="quienes-somos">
+    <h2>Quiénes Somos</h2>
+    <p>En Chakra Coffee & Brunch somos más que una cafetería: somos un espacio creado para equilibrar tus sentidos, reconectar con tu energía y disfrutar de los pequeños placeres del día.
+      Por eso, cada detalle de nuestro concepto desde los sabores hasta el ambiente está pensado para transmitir armonía, vitalidad y buena energía.
+      Aquí, cada visita es una pausa, un ritual diario que nutre y revitaliza.</p>
+     <br>
+      <p>Somos también un lugar donde todos son bienvenidos, incluso tus compañeros de cuatro patas. Somos pet friendly, porque creemos en la conexión auténtica con quienes forman parte de tu día.</p>
+      <br>
+      <p>En Chakra, la energía se comparte, se cuida y se disfruta. Te esperamos para que vivas un brunch con propósito.</p>
+  </section>
+
+  <section id="filosofia">
+    <h2>Filosofía</h2>
+    <p>En Chakra, creemos que el bienestar comienza desde adentro. Así como los chakras equilibran la energía del cuerpo, nuestra propuesta busca armonizar cuerpo, mente y espíritu a través de una experiencia consciente de brunch y café.</p>
+   <br>
+    <p>Cada plato, cada taza, cada rincón está pensado para ayudarte a reconectar contigo mismo, a encontrar ese momento de calma y presencia en medio del día.</p>
+    <br>
+    <p>Chakra Coffee & Brunch: Energía que se siente. Equilibrio que se vive.</p>
+
+  </section>
+
+  <section id="menu">
+  <h2>Menú</h2>
+  <iframe src="carta.pdf" height="600"></iframe>
+  <div style="text-align: center; margin-top: 1.5rem;">
+    <a href="carta.pdf" download>
+      <button style="margin-top: 1rem; padding: 1rem 2rem; font-size: 1rem; background-color: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer; font-family: 'Poppins', sans-serif;">
+        📄 Descargar Carta
+      </button>
+    </a>
+  </div>
+  </section>
+
+  <section id="horario">
+  <h2>Horario</h2>
+  <img src="horario.png" alt="Horario Chakra Coffee & Brunch" style="max-width: 500px; display: block; margin: 1rem auto;">
+</section>
+  </section>
+
+  <section id="ubicacion">
+    <h2>Ubicación</h2>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3527.866383893266!2d-15.447611323855572!3d27.84464461942132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc409f14efa40a29%3A0x2647ae682d50702!2sChakra%20Coffee%20%26%20Brunch!5e0!3m2!1ses!2ses!4v1751561034411!5m2!1ses!2ses" height="400"></iframe>
+  </section>
+
+  <section id="contacto">
+    <h2>Contacto</h2>
+    <form action="mailto:jesussxd14@gmail.com" method="POST" enctype="text/plain">
+      <input type="text" name="nombre" placeholder="Tu nombre" required>
+      <input type="email" name="email" placeholder="Tu correo electrónico" required>
+      <textarea name="mensaje" placeholder="Tu mensaje" required></textarea>
+      <button type="submit">Enviar</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2025 Chakra Coffee & Brunch. Todos los derechos reservados.</p>
+  </footer>
+
+  <a href="https://wa.me/34646128366" class="whatsapp-float" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+    <span class="whatsapp-tooltip">Reserva tu mesa</span>
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" 
+         alt="WhatsApp" 
+         width="60" 
+         height="60" />
+  </a>
   
-<span class="whatsapp-tooltip">Reserva tu mesa</span>
-
-  <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" 
-       alt="WhatsApp" 
-       width="60" 
-       height="60" />
-</a>
-
+  <style>
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background-color: #25D366;
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-family: 'Poppins', sans-serif;
+      font-weight: bold;
+      opacity: 0.8; /* más transparente */
+      transition: opacity 0.3s ease-in-out;
+    }
+  
+    .whatsapp-float:hover {
+      opacity: 1; /* totalmente visible al pasar el mouse */
+    }
+  
+    .whatsapp-tooltip {
+      font-size: 0.9rem;
+    }
+  
+    .whatsapp-float img:first-child {
+      display: none;
+    }
+  
+    .whatsapp-float img:last-child {
+      width: 40px;
+      height: 40px;
+    }
+  </style>
+  
+  </style>
 </body>
 </html>
