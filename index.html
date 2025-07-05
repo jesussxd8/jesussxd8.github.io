@@ -12,11 +12,11 @@
 
   <style>
     :root {
-      --bg: #f4efe8;
+      --bg: #ffffff;
       --primary: #c66c27;
-      --accent: #f0ead6;
+      --accent: #ffffff;
       --text: #2b1e1e;
-      --white: #ffffff;
+      --white: #f4efe8;
       --shadow: rgba(0, 0, 0, 0.05);
     }
 
@@ -181,7 +181,7 @@
     footer {
       text-align: center;
       padding: 2rem;
-      background-color: var(--accent);
+      background-color: #f4efe8;
       color: var(--text);
       font-size: 0.9rem;
       margin-top: 4rem;
@@ -308,7 +308,7 @@
 
   <section id="horario">
   <h2>Horario</h2>
-  <img src="horario.png" alt="Horario Chakra Coffee & Brunch" style="max-width: 500px; display: block; margin: 1rem auto;">
+  <img src="horario.jpeg" alt="Horario Chakra Coffee & Brunch" style="max-width: 500px; display: block; margin: 1rem auto;">
 </section>
   </section>
 
@@ -379,5 +379,14 @@
   </style>
   
   </style>
+
+<script>
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.remove('open');
+    });
+  });
+</script>
+
 </body>
 </html>
